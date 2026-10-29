@@ -64,8 +64,9 @@
   position: sticky;
   bottom: 0;
   flex-shrink: 0;
-  height: var(--footer-height);
-  padding: 0 var(--space-6);
+  min-height: var(--footer-height);
+  height: auto;
+  padding: var(--space-2) var(--space-6);
   background: var(--color-surface);
   border-top: 1px solid var(--color-border);
   display: flex;
@@ -436,4 +437,59 @@
 
 .screen-message small {
   color: var(--color-text-secondary);
+}
+
+/* ---------- Header actions (Batch 2) ---------- */
+.header__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-3);
+  height: 40px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.header__action:hover {
+  background: var(--color-bg);
+}
+
+.header__action__long { display: inline; }
+.header__action__short { display: none; }
+
+@media (max-width: 767px) {
+  .header__action__long { display: none; }
+  .header__action__short { display: inline; }
+  .header__action {
+    padding: var(--space-2);
+    width: 40px;
+  }
+}
+
+/* ---------- Botón con hint (Batch 2) ---------- */
+.btn-with-hint {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+}
+
+.btn-with-hint .btn-hint {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  text-align: right;
+  max-width: 220px;
+  line-height: 1.2;
+}
+
+.btn-with-hint .btn:not(:disabled) ~ .btn-hint {
+  display: none;
 }

@@ -1,6 +1,7 @@
 import { h } from '../core/dom.js';
 import { navigate } from '../core/router.js';
 import { store } from '../core/store.js';
+import { showToast } from '../components/toast.js';
 
 export function renderComprobacion(station) {
   const progress = store.getPersisted().stations.find(s => s.stationId === station.id);
@@ -88,6 +89,7 @@ export function renderComprobacion(station) {
     onclick: () => {
       persist();
       store.flush();
+      showToast('Comprobación guardada', 'success');
       navigate(`/estacion/${station.id}/conclusion`);
     }
   }, 'Guardar y concluir →');
@@ -113,11 +115,16 @@ export function renderComprobacion(station) {
     onclick: () => navigate(`/estacion/${station.id}/medidas`)
   }, '← Atrás');
 
+  const saveBtnWrapper = h('div', { class: 'btn-with-hint' },
+    saveBtn,
+    h('p', { class: 'btn-hint' }, 'Selecciona una respuesta')
+  );
+
   return {
     title: `${station.order}. ${station.title} — Comprobación`,
     showManual: true,
     showHelp: false,
     content: body,
-    footerActions: { left: backBtn, right: saveBtn }
+    footerActions: { left: backBtn, right: saveBtnWrapper }
   };
 }

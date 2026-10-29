@@ -1,6 +1,7 @@
 import { h } from '../core/dom.js';
 import { navigate } from '../core/router.js';
 import { store } from '../core/store.js';
+import { showToast } from '../components/toast.js';
 
 export function renderConclusion(station) {
   const progress = store.getPersisted().stations.find(s => s.stationId === station.id);
@@ -33,6 +34,7 @@ export function renderConclusion(station) {
     onclick: () => {
       persist();
       store.flush();
+      showToast('Conclusión guardada', 'success');
       navigate(`/estacion/${station.id}/aplicacion`);
     }
   }, 'Guardar y continuar →');
@@ -54,11 +56,16 @@ export function renderConclusion(station) {
     onclick: () => navigate(`/estacion/${station.id}/comprobacion`)
   }, '← Atrás');
 
+  const saveBtnWrapper = h('div', { class: 'btn-with-hint' },
+    saveBtn,
+    h('p', { class: 'btn-hint' }, 'Escribe tu conclusión')
+  );
+
   return {
     title: `${station.order}. ${station.title} — Conclusión`,
     showManual: true,
     showHelp: false,
     content: body,
-    footerActions: { left: backBtn, right: saveBtn }
+    footerActions: { left: backBtn, right: saveBtnWrapper }
   };
 }

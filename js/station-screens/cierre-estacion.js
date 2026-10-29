@@ -72,11 +72,16 @@ export function renderCierreEstacion(station) {
         String(manualQueriesCount)));
   }
 
+  const closingNarrative = station.closingNarrative || '';
+
   const body = h('div', { class: 'screen-station' },
     h('div', { class: 'completion-badge' },
       h('div', { class: 'completion-badge__icon' }, '✓'),
       h('div', { class: 'completion-badge__title' }, 'Estación completada')
     ),
+    closingNarrative
+      ? h('p', { class: 'station-closing-narrative' }, closingNarrative)
+      : null,
     h('div', { class: 'card' },
       h('h3', { class: 'card__subtitle' }, 'Resumen'),
       h('ul', { class: 'list' }, summaryItems)

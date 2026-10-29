@@ -2,6 +2,7 @@ import { h } from '../core/dom.js';
 import { store } from '../core/store.js';
 import { getContent } from '../core/content.js';
 import { navigate } from '../core/router.js';
+import { createStationIcon } from '../components/station-icons.js';
 
 export function ScreenMapa() {
   const state = store.get();
@@ -42,9 +43,14 @@ export function ScreenMapa() {
 
     return h('article', { class: cardClass },
       h('div', { class: 'station-card__header' },
-        h('span', { class: 'station-card__number' }, String(station.order)),
+        h('span', { class: 'station-card__icon' },
+          createStationIcon(station.icon, 20)
+        ),
         h('h3', { class: 'station-card__title' }, station.title)
       ),
+      station.cardDescription
+        ? h('p', { class: 'station-card__description' }, station.cardDescription)
+        : null,
       h('p', { class: 'station-card__state' }, stateLabel),
       h('button', {
         class: buttonClass,

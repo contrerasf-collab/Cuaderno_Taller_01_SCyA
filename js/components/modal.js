@@ -5,7 +5,12 @@ let activeModal = null;
 export function openModal({ title, content, size = 'md', onClose } = {}) {
   closeModal();
 
-  const overlay = h('div', { class: 'modal-overlay' });
+  const overlay = h('div', {
+    class: 'modal-overlay',
+    role: 'dialog',
+    'aria-modal': 'true',
+    'aria-label': title || 'Diálogo'
+  });
   const dialog = h('div', { class: `modal modal--${size}` });
 
   const header = h('div', { class: 'modal__header' },

@@ -1,6 +1,7 @@
 import { h } from '../core/dom.js';
 import { navigate } from '../core/router.js';
 import { store } from '../core/store.js';
+import { showToast } from '../components/toast.js';
 
 export function renderReflexion() {
   const fm = store.getPersisted().finalMission;
@@ -48,6 +49,7 @@ export function renderReflexion() {
     onclick: () => {
       persist();
       store.flush();
+      showToast('Reflexión guardada', 'success');
       navigate('/mision/cierre');
     }
   }, 'Finalizar misión →');
@@ -62,6 +64,11 @@ export function renderReflexion() {
     type: 'button',
     onclick: () => navigate('/mision/reparacion')
   }, '← Atrás');
+
+  const saveBtnWrapper = h('div', { class: 'btn-with-hint' },
+    saveBtn,
+    h('p', { class: 'btn-hint' }, 'Completa las tres preguntas')
+  );
 
   const body = h('div', { class: 'screen-mission' },
     h('h2', null, 'Reflexión profesional'),
@@ -84,6 +91,6 @@ export function renderReflexion() {
   return {
     title: 'Misión final — Reflexión',
     content: body,
-    footerActions: { left: backBtn, right: saveBtn }
+    footerActions: { left: backBtn, right: saveBtnWrapper }
   };
 }

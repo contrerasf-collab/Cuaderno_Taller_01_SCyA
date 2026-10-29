@@ -2,13 +2,36 @@ import { h } from '../core/dom.js';
 import { store } from '../core/store.js';
 import { openModal } from './modal.js';
 
-export function openHelpPanel(station) {
-  const helps = station.helps || [];
+const SCREEN_MAX_LEVEL = {
+  situacion: 0,
+  pregunta: 0,
+  prediccion: 2,
+  documentacion: 4,
+  experimento: 4,
+  medidas: 4,
+  comprobacion: 4,
+  conclusion: 4,
+  aplicacion: 4,
+  cierre: 0
+};
 
-  if (helps.length === 0) {
+function computeMaxLevel(screenId) {
+  if (!screenId) return 4;
+  if (SCREEN_MAX_LEVEL[screenId] !== undefined) {
+    return SCREEN_MAX_LEVEL[screenId];
+  }
+  return 4;
+}
+
+export function openHelpPanel(station, screenId = null) {
+  const helps = station.helps || [];
+  const maxLevel = computeMaxLevel(screenId);
+
+  if (helps.length === 0 || maxLevel === 0) {
     openModal({
       title: 'Ayudas',
-      content: h('p', null, 'No hay ayudas disponibles para esta estación.')
+      content: h('p', null,
+        'No hay ayudas disponibles en esta pantalla. Continúa con la actividad.')
     });
     return;
   }
@@ -45,7 +68,8 @@ export function openHelpPanel(station) {
         `Has consultado ${currentLevel} de ${helps.length} ayudas.`));
     }
 
-    for (let level = 1; level <= currentLevel; level++) {
+    const visibleLevels = Math.min(currentLevel, helps.length);
+    for (let level = 1; level <= visibleLevels; level++) {
       const help = helps[level - 1];
       if (!help) continue;
       body.appendChild(h('div', {
@@ -70,15 +94,21 @@ export function openHelpPanel(station) {
         }
       }, 'Leer ayuda 1'));
     } else if (currentLevel < helps.length) {
-      body.appendChild(h('button', {
-        class: 'btn btn--primary',
-        type: 'button',
-        onclick: () => {
-          registerLevel(currentLevel + 1);
-          currentLevel = currentLevel + 1;
-          refresh();
-        }
-      }, `Solicitar ayuda ${currentLevel + 1}`));
+      if (currentLevel < maxLevel) {
+        body.appendChild(h('button', {
+          class: 'btn btn--primary',
+          type: 'button',
+          onclick: () => {
+            registerLevel(currentLevel + 1);
+            currentLevel = currentLevel + 1;
+            refresh();
+          }
+        }, `Solicitar ayuda ${currentLevel + 1}`));
+      } else {
+        body.appendChild(h('div', { class: 'card card--warning' },
+          h('p', null,
+            'Disponible en fases posteriores. Continúa con la actividad para acceder a más ayuda.')));
+      }
     } else {
       body.appendChild(h('div', { class: 'card card--info' },
         h('p', null, 'No hay más ayudas disponibles. Es momento de montar y medir.')));

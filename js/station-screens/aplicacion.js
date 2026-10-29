@@ -1,6 +1,7 @@
 import { h } from '../core/dom.js';
 import { navigate } from '../core/router.js';
 import { store } from '../core/store.js';
+import { showToast } from '../components/toast.js';
 
 export function renderAplicacion(station) {
   const progress = store.getPersisted().stations.find(s => s.stationId === station.id);
@@ -33,6 +34,7 @@ export function renderAplicacion(station) {
     onclick: () => {
       persist();
       store.flush();
+      showToast('Aplicación guardada', 'success');
       navigate(`/estacion/${station.id}/cierre`);
     }
   }, 'Guardar y cerrar estación →');
@@ -54,11 +56,16 @@ export function renderAplicacion(station) {
     onclick: () => navigate(`/estacion/${station.id}/conclusion`)
   }, '← Atrás');
 
+  const saveBtnWrapper = h('div', { class: 'btn-with-hint' },
+    saveBtn,
+    h('p', { class: 'btn-hint' }, 'Escribe tu respuesta')
+  );
+
   return {
     title: `${station.order}. ${station.title} — Aplicación`,
     showManual: true,
     showHelp: false,
     content: body,
-    footerActions: { left: backBtn, right: saveBtn }
+    footerActions: { left: backBtn, right: saveBtnWrapper }
   };
 }

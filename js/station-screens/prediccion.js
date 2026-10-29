@@ -1,6 +1,7 @@
 import { h } from '../core/dom.js';
 import { navigate } from '../core/router.js';
 import { store } from '../core/store.js';
+import { showToast } from '../components/toast.js';
 
 export function renderPrediccion(station) {
   const state = store.getPersisted();
@@ -60,6 +61,7 @@ function renderForm(station) {
     }));
 
     store.flush();
+    showToast('Predicción guardada', 'success');
     navigate(`/estacion/${station.id}/documentacion`);
   }
 
@@ -80,8 +82,13 @@ function renderForm(station) {
       station.prediction.intro || 'Antes de montar, escribe lo que crees que ocurrirá.'),
     h('div', { class: 'card' }, fields),
     h('div', { class: 'card card--warning' },
-      h('p', null, `⚠ ${station.prediction.lockWarning}`)
+      h('p', null, station.prediction.lockWarning)
     )
+  );
+
+  const saveBtnWrapper = h('div', { class: 'btn-with-hint' },
+    saveBtn,
+    h('p', { class: 'btn-hint' }, 'Completa los campos obligatorios')
   );
 
   return {
@@ -89,7 +96,7 @@ function renderForm(station) {
     showManual: true,
     showHelp: false,
     content,
-    footerActions: { left: backBtn, right: saveBtn },
+    footerActions: { left: backBtn, right: saveBtnWrapper },
     onMount() {
       updateSaveState();
     }

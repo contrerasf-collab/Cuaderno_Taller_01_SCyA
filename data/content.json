@@ -22,13 +22,15 @@
       "Comunicar cualquier anomalía al profesor."
     ]
   },
+    "introNarrative": "Hoy trabajarás como técnico de diagnosis eléctrica. Completarás cuatro estaciones y resolverás una avería final. Usa el multímetro, piensa antes de medir y saca tus propias conclusiones.",
   "stations": [
     {
       "id": "E1",
       "order": 1,
       "title": "El relé misterioso",
       "shortTitle": "Relé",
-      "icon": "relay",
+           "icon": "relay",
+      "cardDescription": "Reconstruye el circuito con relé para los focos auxiliares.",
       "situation": {
         "narrative": "Un cliente ha instalado unos focos auxiliares. El sistema ha sido desmontado. Solo tienes relé, interruptor, bombilla, cableado, portafusibles y terminales Faston. Debes reconstruir el circuito y conseguir que funcione.",
         "materials": [
@@ -166,14 +168,16 @@
           "icon": "tool",
           "text": "Conecta 85 a masa y 86 a positivo a través del interruptor. Conecta 30 a positivo con fusible y 87 a la bombilla, y la bombilla a masa. Antes de montar, mide continuidad entre 30 y 87 con y sin bobina excitada para comprobar tu hipótesis."
         }
-      ]
+      ],
+      "closingNarrative": "Has aprendido a usar un relé para controlar grandes corrientes con pequeñas señales. En taller real, esto se usa en faros, electroventiladores y bombas."
     },
     {
       "id": "E2",
       "order": 2,
       "title": "Ingenieros de alumbrado",
       "shortTitle": "Alumbrado",
-      "icon": "circuit",
+           "icon": "circuit",
+      "cardDescription": "Decide serie o paralelo para el alumbrado del vehículo.",
       "situation": {
         "narrative": "Un fabricante debe decidir cómo conectar dos lámparas delanteras. Se dispone de datos técnicos de las lámparas y se debe elegir la conexión y el fusible adecuado. El objetivo es diseñar y construir el circuito de alumbrado más adecuado para un vehículo y justificar técnicamente la solución.",
         "materials": [
@@ -344,14 +348,16 @@
           "icon": "tool",
           "text": "Monta las lámparas en serie y mide la tensión en cada una. Verás que se reparte y lucen menos. Monta en paralelo y verás que cada una recibe 12 V. Retira una lámpara en cada configuración y observa. Para el fusible: consulta la tabla de consumo orientativo, compara el consumo de una lámpara con el de dos en paralelo y elige el fusible más pequeño de la caja que cubra el consumo total. Justifica por qué ese y no otro."
         }
-      ]
+            ],
+      "closingNarrative": "Has descubierto por qué el alumbrado va en paralelo: si una lámpara funde, las demás siguen. Y por qué el fusible protege el cable, no al usuario."
     },
     {
       "id": "E3",
       "order": 3,
       "title": "El electroventilador multivelocidad",
       "shortTitle": "Electroventilador",
-      "icon": "motor",
+           "icon": "motor",
+      "cardDescription": "Consigue varias velocidades del electroventilador con resistencias.",
       "situation": {
         "narrative": "Un electroventilador debe disponer de varias velocidades sin emplear electrónica. Se dispone de un motor de CC con datos técnicos y de resistencias para intercalar. El objetivo es conseguir al menos dos velocidades claramente diferenciadas del motor intercalando resistencias, sin usar electrónica.",
         "materials": [
@@ -502,14 +508,16 @@
           "icon": "tool",
           "text": "Monta una resistencia en serie con el motor. Mide Vmotor y Vresistencia. Comprueba que Vmotor + Vresistencia = Vfuente. Haz lo mismo con otra resistencia. Compara las velocidades contando revoluciones en 10 s. Para la pregunta de control: si bloqueas el motor, la tensión en el motor cambia y la velocidad se anula; por eso el motor no se comporta como una resistencia fija."
         }
-      ]
+            ],
+      "closingNarrative": "Has comprobado que una resistencia en serie baja la tensión del motor. Es la base de los sistemas de velocidades sin electrónica, aunque hoy se usan módulos PWM."
     },
     {
       "id": "E4",
       "order": 4,
       "title": "Inspectores eléctricos",
       "shortTitle": "Inspectores",
-      "icon": "battery",
+            "icon": "battery",
+      "cardDescription": "Diagnostica por qué la batería se descarga tras circular.",
       "situation": {
         "narrative": "Un cliente acude al taller porque la batería se descarga después de circular. El vehículo arranca bien por la mañana, pero tras varios desplazamientos la batería aparece descargada. Hay que determinar si el fallo está en la batería, en el alternador, en el cableado o en una conexión defectuosa (masa o positivo).",
         "materials": [
@@ -654,7 +662,8 @@
           "icon": "tool",
           "text": "Empieza midiendo batería en reposo. Si está por debajo de 12,4 V, puede estar descargada. Luego mide en marcha: si no sube de 13 V, el alternador no carga. Si sube pero las luces bajan, mide caída de tensión en el cable de masa del motor y en el positivo del alternador con el motor en marcha y consumidores encendidos. Compara con los valores de referencia y emite tu diagnóstico."
         }
-      ]
+            ],
+      "closingNarrative": "Has seguido un protocolo de diagnóstico con tensiones y caídas. En taller real, este orden ahorra tiempo y evita cambiar piezas sin criterio."
     }
   ],
   "manual": {

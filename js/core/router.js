@@ -34,6 +34,16 @@ const GUARD_REDIRECTS = {
   requireMissionUnlocked: '/mapa'
 };
 
+const HELP_SCREENS = [
+  'prediccion',
+  'documentacion',
+  'experimento',
+  'medidas',
+  'comprobacion',
+  'conclusion',
+  'aplicacion'
+];
+
 let currentScreenInstance = null;
 
 export function initRouter() {
@@ -182,22 +192,30 @@ function renderHeader(header, screen, match) {
 
   if (match && match.handler === 'estacion') {
     const station = getStation(match.params[0]);
+    const screenId = match.params[1];
+
     if (station) {
       right.appendChild(h('button', {
-        class: 'header__icon-btn',
+        class: 'header__action',
         type: 'button',
-        title: 'Manual',
         'aria-label': 'Abrir manual',
         onclick: () => openManualPanel(station)
-      }, 'M'));
+      },
+        h('span', { class: 'header__action__long' }, 'Manual'),
+        h('span', { class: 'header__action__short' }, 'M')
+      ));
 
-      right.appendChild(h('button', {
-        class: 'header__icon-btn',
-        type: 'button',
-        title: 'Ayudas',
-        'aria-label': 'Abrir ayudas',
-        onclick: () => openHelpPanel(station)
-      }, '?'));
+      if (HELP_SCREENS.includes(screenId)) {
+        right.appendChild(h('button', {
+          class: 'header__action',
+          type: 'button',
+          'aria-label': 'Abrir ayudas',
+          onclick: () => openHelpPanel(station, screenId)
+        },
+          h('span', { class: 'header__action__long' }, 'Ayudas'),
+          h('span', { class: 'header__action__short' }, '?')
+        ));
+      }
     }
   }
 

@@ -1,10 +1,13 @@
 import { h } from '../core/dom.js';
 import { store } from '../core/store.js';
+import { getContent } from '../core/content.js';
 import { navigate } from '../core/router.js';
 
 export function ScreenInicio() {
   const state = store.get();
+  const content = getContent();
   const hasSession = !!(state.session.groupName && state.session.groupName.length > 0);
+  const intro = content.introNarrative || '';
 
   let groupInput = null;
   let member1 = null;
@@ -36,16 +39,15 @@ export function ScreenInicio() {
   }
 
   function continueSession() {
-  const fresh = store.getPersisted();
-  const target = fresh.session.lastWorkingScreen || '/mapa';
-  navigate(target);
-}
+    const fresh = store.getPersisted();
+    const target = fresh.session.lastWorkingScreen || '/mapa';
+    navigate(target);
+  }
 
   function newSession() {
     if (!window.confirm('¿Empezar una nueva sesión? Se borrará el progreso actual.')) return;
     store.reset();
     navigate('/');
-    // Forzar re-render
     window.location.reload();
   }
 
@@ -68,10 +70,13 @@ export function ScreenInicio() {
         onclick: saveAndStart
       }, 'Empezar la jornada');
 
-  const content = h('div', { class: 'screen-inicio' },
+  const el = h('div', { class: 'screen-inicio' },
     h('div', { class: 'screen-inicio__hero' },
       h('h1', { class: 'screen-inicio__title' }, 'Jornada Técnica de Electricidad Básica del Automóvil'),
-      h('p', { class: 'screen-inicio__subtitle' }, 'Cuaderno interactivo de taller')
+      h('p', { class: 'screen-inicio__subtitle' }, 'Cuaderno interactivo de taller'),
+      intro
+        ? h('p', { class: 'screen-inicio__intro' }, intro)
+        : null
     ),
     h('div', { class: 'card screen-inicio__card' },
       h('h2', { class: 'card__title' }, 'Identificación del equipo'),
@@ -100,7 +105,7 @@ export function ScreenInicio() {
     title: 'Inicio',
     showManual: false,
     showHelp: false,
-    content,
+    content: el,
     onMount() {
       if (!hasSession && groupInput) {
         setTimeout(() => { try { groupInput.focus(); } catch (_) {} }, 50);
