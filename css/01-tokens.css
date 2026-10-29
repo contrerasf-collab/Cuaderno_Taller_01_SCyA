@@ -1,0 +1,63 @@
+:root {
+  /* Colores */
+  --color-bg: #F2F3F5;
+  --color-surface: #FFFFFF;
+  --color-text: #1F2328;
+  --color-text-secondary: #5A6270;
+  --color-accent: #1F5FA8;
+  --color-accent-hover: #174A85;
+  --color-workshop: #F2B705;
+  --color-completed: #2E7D4F;
+  --color-error: #C0392B;
+  --color-border: #E1E4E8;
+  --color-info-bg: #EAF2FA;
+  --color-warning-bg: #FDF3D6;
+  --color-safety-bg: #FBE5D6;
+
+  /* Tipografía */
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-mono: "SF Mono", "Consolas", "Monaco", monospace;
+
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 24px;
+  --text-3xl: 32px;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Espaciado */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Radios */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  /* Layout */
+  --header-height: 64px;
+  --footer-height: 72px;
+  --content-max-width: 960px;
+
+  /* Transiciones */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+}

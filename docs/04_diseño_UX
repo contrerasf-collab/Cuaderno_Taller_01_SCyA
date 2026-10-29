@@ -1,0 +1,1201 @@
+# DISEÑO UX COMPLETO
+## Cuaderno Interactivo de Taller — Electricidad Básica del Automóvil
+### Documento de diseño visual y de interfaz · v1.0
+
+---
+
+## TAREA 1 — SISTEMA VISUAL GLOBAL
+
+### 1.1. Estilo, personalidad y tono
+
+**Estilo:** "Taller técnico digital". Interfaz sobria, funcional, con la densidad justa. Nada de decoración gratuita. Cada elemento existe porque ayuda a trabajar.
+
+**Personalidad:** un asistente de taller veterano. Habla claro, no infantiliza, no felicita en exceso, no regaña. Está ahí cuando se le necesita y desaparece cuando no.
+
+**Tono:** técnico, directo, respetuoso. Frases cortas. Sin signos de exclamación. Sin emojis en la interfaz principal (solo en feedback muy puntual, y con moderación).
+
+**Referencias visuales (no copiar, solo inspirar):**
+- Documentación técnica de fabricante de automoción (esquemas, tablas, valores).
+- Paneles de instrumentación de taller.
+- Órdenes de reparación impresas.
+- Interfaz de multímetro de gama alta (limpia, contrastada, sin adornos).
+
+**Lo que NO es:** Moodle, Google Forms, libro digital, examen online, PowerPoint.
+
+### 1.2. Paleta de colores
+
+**Colores principales:**
+
+| Rol | Color | Hex | Justificación |
+|-----|-------|-----|---------------|
+| Fondo principal | Gris claro técnico | `#F2F3F5` | Reduce fatiga visual en taller con luz variable. No es blanco puro (deslumbra). |
+| Superficie de tarjeta | Blanco roto | `#FFFFFF` | Contraste con el fondo, legible. |
+| Texto principal | Gris carbón | `#1F2328` | Alto contraste, sin ser negro puro (menos duro). |
+| Texto secundario | Gris medio | `#5A6270` | Jerarquía sin ruido. |
+| Acento primario | Azul técnico | `#1F5FA8` | Color de marca, botones principales, enlaces. Serio, no corporativo. |
+| Acento de taller | Amarillo seguridad | `#F2B705` | Solo para alertas, estados "en curso", elementos que requieren atención. Uso muy medido. |
+
+**Colores de estado:**
+
+| Estado | Color | Hex | Uso |
+|--------|-------|-----|-----|
+| Pendiente | Gris | `#9AA1AC` | Estaciones no iniciadas, niveles de ayuda bloqueados. |
+| En curso | Amarillo seguridad | `#F2B705` | Estación activa, progreso parcial. |
+| Completada | Verde técnico | `#2E7D4F` | Estación terminada, comprobación correcta. |
+| Error / Atención | Rojo señal | `#C0392B` | Solo para avisos de seguridad o datos incoherentes. Muy puntual. |
+| Información | Azul claro | `#D6E4F0` | Fondos de notas, ayudas nivel 1-2. |
+
+**Colores de superficie para ayudas (progresión visual):**
+
+| Nivel | Fondo | Borde | Icono |
+|-------|-------|-------|-------|
+| Nivel 1 | `#EAF2FA` (azul muy claro) | `#1F5FA8` fino | 💡 (bombilla tenue) |
+| Nivel 2 | `#D6E4F0` (azul claro) | `#1F5FA8` medio | 🔍 (lupa) |
+| Nivel 3 | `#FDF3D6` (amarillo claro) | `#F2B705` medio | 🧭 (brújula) |
+| Nivel 4 | `#FBE5D6` (naranja claro) | `#E67E22` grueso | 🛠️ (herramienta) |
+
+*La progresión cromática va de "fresco/neutro" a "cálido/atención", transmitiendo que se acerca a una pista más concreta sin llegar a la solución.*
+
+### 1.3. Tipografías
+
+**Recomendación:** system fonts para garantizar offline y rendimiento.
+
+| Uso | Familia | Tamaño | Peso |
+|-----|---------|--------|------|
+| Títulos de pantalla | `-apple-system, "Segoe UI", Roboto, sans-serif` | 24 px | 600 |
+| Títulos de sección | Igual | 18 px | 600 |
+| Cuerpo de texto | Igual | 16 px | 400 |
+| Texto secundario | Igual | 14 px | 400 |
+| Etiquetas de tabla / datos | Igual | 14 px | 500 |
+| Datos numéricos (medidas) | `"SF Mono", "Consolas", monospace` | 15 px | 400 |
+| Esquemas ASCII | `monospace` | 13 px | 400 |
+
+**Justificación:** system fonts eliminan FOUT, dependencia de red y peso. La monoespaciada para datos numéricos y esquemas facilita la lectura alineada y el aspecto técnico.
+
+### 1.4. Iconografía
+
+**Estilo:** lineal, 2 px de grosor, esquinas ligeramente redondeadas. Sin relleno. Set mínimo (12-15 iconos). SVG inline.
+
+**Iconos necesarios:**
+- Inicio (casa)
+- Mapa (cuadrícula)
+- Manual (libro abierto o lupa)
+- Ayuda (signo de interrogación en círculo)
+- Estación (número en círculo)
+- Completada (check)
+- En curso (punto amarillo)
+- Pendiente (círculo vacío)
+- Atrás (flecha izquierda)
+- Siguiente (flecha derecha)
+- Guardar (disquete o check)
+- Exportar (flecha hacia abajo)
+- Seguridad (casco o triángulo de advertencia)
+- Relé (símbolo de bobina)
+- Multímetro (símbolo de V)
+
+**Justificación:** iconos lineales y monocromos no compiten con el contenido. Se usan como apoyo, nunca como único portador de significado (siempre acompañados de texto).
+
+### 1.5. Estilo de tarjetas
+
+- **Fondo:** blanco `#FFFFFF`.
+- **Borde:** 1 px `#E1E4E8` (muy sutil).
+- **Radio:** 8 px.
+- **Sombra:** `0 1px 2px rgba(0,0,0,0.05)` (casi imperceptible).
+- **Padding:** 20-24 px.
+- **Separación entre tarjetas:** 16 px.
+
+**Justificación:** tarjetas planas con borde sutil dan sensación de documento técnico, no de app comercial. La sombra mínima ayuda a separar sin decorar.
+
+### 1.6. Estilo de botones
+
+**Botón primario:**
+- Fondo: `#1F5FA8`.
+- Texto: blanco, 15 px, peso 600.
+- Padding: 12 px 24 px.
+- Radio: 6 px.
+- Altura mínima: 44 px.
+- Hover: `#174A85`.
+- Focus: outline 2 px `#F2B705`.
+
+**Botón secundario:**
+- Fondo: transparente.
+- Borde: 1 px `#1F5FA8`.
+- Texto: `#1F5FA8`.
+- Hover: fondo `#EAF2FA`.
+
+**Botón de peligro / atención:**
+- Fondo: `#C0392B`.
+- Solo para acciones destructivas (borrar sesión, reiniciar).
+
+**Botón de icono (header):**
+- 40×40 px, sin fondo, icono 20×20 px, hover con fondo `#E1E4E8`.
+
+**Justificación:** el primario es azul (acción principal), el secundario es outline (acción alternativa), el peligro es rojo (muy puntual). Altura 44 px cumple accesibilidad táctil.
+
+---
+
+## TAREA 2 — LAYOUT PRINCIPAL (1366×768)
+
+### 2.1. Estructura de zonas
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ HEADER (64 px)                                                               │
+│ [Logo/Título]                    [Progreso 2/4]        [Manual] [Ayudas]     │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│                                                                              │
+│  ZONA PRINCIPAL (alto variable, scroll interno si es necesario)              │
+│                                                                              │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │
+│  │                                                                        │  │
+│  │  CONTENIDO DE PANTALLA                                                │  │
+│  │  (máximo 960 px de ancho, centrado)                                    │  │
+│  │                                                                        │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ FOOTER DE ACCIÓN (72 px)                                                     │
+│ [Atrás]                                                        [Guardar/Next]│
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 2.2. Cabecera (Header)
+
+| Elemento | Posición | Tamaño | Comportamiento |
+|----------|----------|--------|----------------|
+| Título de pantalla | Izquierda | 20 px, peso 600 | Cambia según pantalla |
+| Barra de progreso | Centro-derecha | 200 px ancho, 8 px alto | Muestra 4 segmentos; el activo en amarillo, completados en verde, pendientes en gris |
+| Botón Manual | Derecha | 40×40 px | Abre overlay manual |
+| Botón Ayudas | Derecha | 40×40 px | Abre overlay ayudas (oculto en pantallas donde no aplica) |
+
+**Fondo del header:** blanco `#FFFFFF`, borde inferior 1 px `#E1E4E8`. Sombra sutil al hacer scroll.
+
+### 2.3. Zona principal
+
+- **Ancho máximo de contenido:** 960 px, centrado.
+- **Padding lateral:** 24 px mínimo.
+- **Scroll:** vertical, con scrollbar fina.
+- **Fondo:** `#F2F3F5`.
+
+### 2.4. Footer de acción
+
+- **Fondo:** blanco, borde superior 1 px `#E1E4E8`.
+- **Botón "Atrás":** secundario, izquierda.
+- **Botón "Guardar y continuar" / "Siguiente":** primario, derecha.
+- **Altura:** 72 px (cómodo para clic).
+- **Sticky:** siempre visible al hacer scroll.
+
+### 2.5. Navegación
+
+- **No hay menú lateral permanente** en v1.0. La navegación es lineal dentro de cada estación.
+- **Acceso al mapa:** botón "Ir al mapa" en el header (icono de cuadrícula) o mediante "Atrás" hasta el mapa.
+- **Overlays:** manual y ayudas se abren sobre la pantalla actual, con fondo oscurecido al 40%.
+
+### 2.6. Wireframe general
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  ESTACIÓN 1 · EL RELÉ MISTERIOSO        ■■■□ 2/4      [📖]  [❓]         │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │                                                                      │   │
+│   │   TÍTULO DE PANTALLA                                                │   │
+│   │                                                                      │   │
+│   │   Contenido principal...                                            │   │
+│   │                                                                      │   │
+│   │   ┌────────────────────────────────────────────────────────────┐    │   │
+│   │   │  Tarjeta / formulario / tabla                              │    │   │
+│   │   └────────────────────────────────────────────────────────────┘    │   │
+│   │                                                                      │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  [← Atrás]                                             [Guardar y continuar →]│
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## TAREA 3 — PANTALLA DE INICIO
+
+### 3.1. Estructura y jerarquía
+
+La pantalla de inicio debe transmitir **"esto es una herramienta de taller"** en menos de 3 segundos. No es una landing page. No hay scroll. Todo cabe en 1366×768.
+
+**Jerarquía visual:**
+1. Título del proyecto (arriba, grande).
+2. Identificación del grupo (campo principal).
+3. Botón "Empezar" (CTA principal, grande).
+4. Acceso secundario a "Continuar sesión" (si existe).
+5. Pie con normas de seguridad resumidas.
+
+### 3.2. Wireframe
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                                                                              │
+│                                                                              │
+│                     JORNADA TÉCNICA DE ELECTRICIDAD                          │
+│                     BÁSICA DEL AUTOMÓVIL                                     │
+│                     ─────────────────────────                                │
+│                     Cuaderno interactivo de taller                           │
+│                                                                              │
+│                                                                              │
+│         ┌──────────────────────────────────────────────────────────┐         │
+│         │                                                          │         │
+│         │   IDENTIFICACIÓN DEL EQUIPO                              │         │
+│         │                                                          │         │
+│         │   Nombre del equipo:  [_____________________________]     │         │
+│         │                                                          │         │
+│         │   Integrantes:                                           │         │
+│         │   1. [_____________________________]                     │         │
+│         │   2. [_____________________________]                     │         │
+│         │   3. [_____________________________]                     │         │
+│         │                                                          │         │
+│         └──────────────────────────────────────────────────────────┘         │
+│                                                                              │
+│                                                                              │
+│                  ┌─────────────────────────────┐                             │
+│                  │      EMPEZAR LA JORNADA      │                             │
+│                  └─────────────────────────────┘                             │
+│                                                                              │
+│                  (Si hay sesión previa:)                                     │
+│                  ┌─────────────────────────────┐                             │
+│                  │   CONTINUAR SESIÓN (2/4)     │                             │
+│                  └─────────────────────────────┘                             │
+│                                                                              │
+│                                                                              │
+│   ───────────────────────────────────────────────────────────────────────    │
+│   ⚠ Gafas de protección · Fusible obligatorio · No medir intensidad          │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 3.3. Elementos y tamaños relativos
+
+| Elemento | Tamaño | Notas |
+|----------|--------|-------|
+| Título | 32 px, peso 700 | Centrado, ocupa 15% superior |
+| Subtítulo | 18 px, gris | Una línea |
+| Tarjeta de identificación | 600 px ancho, centrada | 40% central |
+| Botón "Empezar" | 280 px ancho, 56 px alto | CTA principal, azul |
+| Botón "Continuar" | 280 px ancho, 48 px alto | Secundario, outline |
+| Pie de seguridad | 14 px, gris | Una línea, icono ⚠ |
+
+### 3.4. Llamadas a la acción
+
+- **"Empezar la jornada":** primaria, siempre visible.
+- **"Continuar sesión":** solo si hay `Session` en LocalStorage. Muestra progreso entre paréntesis.
+- **No hay enlace a manual ni ayudas en esta pantalla** (aún no hay contexto de estación).
+
+---
+
+## TAREA 4 — MAPA DE ESTACIONES
+
+### 4.1. Opciones y recomendación
+
+**Opción A — Lista vertical de tarjetas:** funcional pero aburrida. Parece un menú.
+
+**Opción B — Cuadrícula 2×2:** cuatro tarjetas iguales. Simple pero sin narrativa.
+
+**Opción C — Banco de trabajo con 4 puestos alrededor de un vehículo central:** recomendada.
+
+**Justificación de la Opción C:** el alumno está en un taller. El mapa debe evocar el espacio físico donde va a trabajar. Un vehículo central (silueta simple) con 4 puestos de trabajo numerados alrededor transmite "vas a rotar por 4 puestos". Es visualmente atractivo sin ser infantil. La misión final se representa como una quinta zona (la oficina del jefe de taller o el vehículo del cliente), visualmente distinta.
+
+### 4.2. Wireframe del mapa
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  MAPA DE ESTACIONES                            ■■■□ 3/4      [📖]         │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   ┌─────────────────────────────┐    ┌─────────────────────────────┐         │
+│   │  ①  EL RELÉ MISTERIOSO      │    │  ②  INGENIEROS DE ALUMBRADO │         │
+│   │  ─────────────────────      │    │  ─────────────────────      │         │
+│   │  ● Completada               │    │  ● Completada               │         │
+│   │                             │    │                             │         │
+│   │  [Abrir estación]           │    │  [Abrir estación]           │         │
+│   └─────────────────────────────┘    └─────────────────────────────┘         │
+│                                                                              │
+│                        ┌───────────────────────┐                             │
+│                        │                       │                             │
+│                        │    SILUETA DE COCHE   │                             │
+│                        │    (SVG simple)       │                             │
+│                        │                       │                             │
+│                        └───────────────────────┘                             │
+│                                                                              │
+│   ┌─────────────────────────────┐    ┌─────────────────────────────┐         │
+│   │  ③  ELECTROVENTILADOR       │    │  ④  INSPECTORES ELÉCTRICOS  │         │
+│   │  ─────────────────────      │    │  ─────────────────────      │         │
+│   │  ◐ En curso                 │    │  ○ Pendiente                │         │
+│   │                             │    │                             │         │
+│   │  [Abrir estación]           │    │  [Abrir estación]           │         │
+│   └─────────────────────────────┘    └─────────────────────────────┘         │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  ★  MISIÓN FINAL: EL ÚLTIMO COCHE DEL DÍA                            │   │
+│   │  ───────────────────────────────────────────────────────────────     │   │
+│   │  🔒 Bloqueada · Completa las 4 estaciones para desbloquear           │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  [← Volver al inicio]                                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 4.3. Estados visuales de las tarjetas
+
+| Estado | Borde | Icono | Texto de estado | Botón |
+|--------|-------|-------|-----------------|-------|
+| Pendiente | 1 px gris | ○ | "Pendiente" (gris) | "Abrir estación" (outline) |
+| En curso | 2 px amarillo | ◐ | "En curso" (amarillo) | "Continuar" (primario) |
+| Completada | 1 px verde | ● | "Completada" (verde) | "Ver / Reabrir" (texto) |
+| Misión bloqueada | 1 px gris, fondo rayado | 🔒 | "Bloqueada" | Deshabilitado |
+| Misión disponible | 2 px azul | ★ | "Disponible" | "Empezar misión" (primario) |
+
+### 4.4. Comportamiento responsive
+
+- **Portátil (P0):** 2×2 + vehículo central + misión abajo.
+- **Tablet (P1):** 2×2 sin vehículo central (o vehículo muy reducido) + misión abajo.
+- **Móvil (P2):** lista vertical de 4 tarjetas + misión al final.
+
+---
+
+## TAREA 5 — ESTACIÓN COMPLETA: EL RELÉ MISTERIOSO
+
+### 5.1. Estructura general de la estación
+
+Cada estación tiene 8 pantallas secuenciales (S03.01–S03.08) más cierre (S03.10). La navegación es lineal con "Atrás" y "Siguiente". El header muestra el nombre de la estación y el progreso dentro de ella (indicador de pasos, no solo estaciones).
+
+**Indicador de pasos dentro de la estación:** 8 puntos pequeños en el header, uno por pantalla, con el actual resaltado.
+
+```
+Header estación:  ☰  ESTACIÓN 1 · RELÉ        ●●○○○○○○  [📖] [❓]
+```
+
+### 5.2. Pantalla 1: Situación (S03.01)
+
+**Objetivo:** contextualizar sin agobiar. El alumno debe entender qué se le pide.
+
+**Distribución:**
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  ESTACIÓN 1 · EL RELÉ MISTERIOSO      ●○○○○○○○  [📖] [❓]                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  SITUACIÓN DE TALLER                                                 │   │
+│   │                                                                      │   │
+│   │  Un cliente ha instalado unos focos auxiliares. El sistema ha sido   │   │
+│   │  desmontado. Solo tienes relé, interruptor, bombilla, cableado,      │   │
+│   │  portafusibles y terminales Faston.                                  │   │
+│   │                                                                      │   │
+│   │  Debes reconstruir el circuito y conseguir que funcione.            │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌───────────────────────────────┐  ┌───────────────────────────────────┐   │
+│   │  MATERIAL DISPONIBLE          │  │  SEGURIDAD                        │   │
+│   │  • Relé 12 V                  │  │  ⚠ Gafas de protección            │   │
+│   │  • Bombilla 12 V              │  │  ⚠ Fusible obligatorio            │   │
+│   │  • Fuente 12 V                │  │  ⚠ No medir continuidad con       │   │
+│   │  • Multímetro                 │  │    tensión                        │   │
+│   │  • Cableado y Faston          │  │                                   │   │
+│   │  • Crimpadora                 │  │                                   │   │
+│   │  • Portafusibles              │  │                                   │   │
+│   └───────────────────────────────┘  └───────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                  [Continuar →]│
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Énfasis visual:** la situación en tarjeta grande; material y seguridad en dos columnas al 50%.
+
+**Acción principal:** "Continuar →".
+
+### 5.3. Pantalla 2: Pregunta inicial (S03.02)
+
+**Objetivo:** plantear el reto sin dar pistas.
+
+**Distribución:**
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  ESTACIÓN 1 · RELÉ                    ●●○○○○○○  [📖] [❓]                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │                                                                      │   │
+│   │  PREGUNTA INICIAL                                                    │   │
+│   │                                                                      │   │
+│   │  ¿Cómo debemos conectar el relé para que el interruptor active la    │   │
+│   │  bombilla sin que pase por él la corriente de la bombilla?           │   │
+│   │                                                                      │   │
+│   │  ¿Qué papel juega el electroimán interno?                            │   │
+│   │                                                                      │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  💡 No respondas todavía. Primero predice.                           │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  [← Atrás]                                              [Hacer mi predicción →]│
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Énfasis:** pregunta en tipografía 22 px, peso 600. Nota informativa en azul claro.
+
+### 5.4. Pantalla 3: Predicción (S03.03)
+
+**Objetivo:** registrar hipótesis antes de manipular. Es la pantalla más importante para el aprendizaje.
+
+**Distribución:**
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  ESTACIÓN 1 · RELÉ                    ●●●○○○○○  [📖] [❓]                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   PREDICCIÓN                                                                 │
+│   ───────────                                                                │
+│   Antes de montar, escribe lo que crees que ocurrirá.                       │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  ¿Cómo crees que se conectan los bornes? (describe o dibuja)         │   │
+│   │                                                                      │   │
+│   │  ┌────────────────────────────────────────────────────────────────┐  │   │
+│   │  │                                                                │  │   │
+│   │  │  [Área de texto libre, 4 líneas]                               │  │   │
+│   │  │                                                                │  │   │
+│   │  │                                                                │  │   │
+│   │  │                                                                │  │   │
+│   │  └────────────────────────────────────────────────────────────────┘  │   │
+│   │                                                                      │   │
+│   │  ¿Qué tensión esperas en el borne 87 cuando la bobina está           │   │
+│   │  excitada? ¿Y cuando no lo está?                                     │   │
+│   │  ┌────────────────────────────────────────────────────────────────┐  │   │
+│   │  │ [Área de texto libre, 2 líneas]                                │  │   │
+│   │  └────────────────────────────────────────────────────────────────┘  │   │
+│   │                                                                      │   │
+│   │  ¿Qué continuidad esperas entre 30 y 87 con y sin excitación?        │   │
+│   │  ┌────────────────────────────────────────────────────────────────┐  │   │
+│   │  │ [Área de texto libre, 2 líneas]                                │  │   │
+│   │  └────────────────────────────────────────────────────────────────┘  │   │
+│   │                                                                      │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  ⚠ Una vez guardada, la predicción no podrá modificarse.             │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  [← Atrás]                                    [Guardar predicción y seguir →]│
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Énfasis visual:** campos de texto con borde claro, foco azul. El aviso de bloqueo en amarillo suave. Botón principal deshabilitado hasta que se rellene al menos el primer campo.
+
+**Acción principal:** "Guardar predicción y seguir →".
+
+### 5.5. Pantalla 4: Documentación opcional (S03.04)
+
+**Objetivo:** ofrecer consulta rápida sin obligar. Es un acceso, no una pantalla de lectura.
+
+**Distribución:**
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  ESTACIÓN 1 · RELÉ                    ●●●●○○○○  [📖] [❓]                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   ¿NECESITAS CONSULTAR ALGO ANTES DE MONTAR?                                 │
+│   ─────────────────────────────────────────────                              │
+│                                                                              │
+│   ┌─────────────────────────────┐  ┌─────────────────────────────┐         │
+│   │  📖 ¿Qué es un relé?        │  │  📖 Bornes 85, 86, 30, 87   │         │
+│   │  Consulta rápida (30 s)     │  │  Tabla de bornes            │         │
+│   │  [Abrir tarjeta]            │  │  [Abrir tarjeta]            │         │
+│   └─────────────────────────────┘  └─────────────────────────────┘         │
+│                                                                              │
+│   ┌─────────────────────────────┐  ┌─────────────────────────────┐         │
+│   │  📖 Contactos NA y NC       │  │  📖 Esquema de relé         │         │
+│   │  Esquema ASCII              │  │  Esquema interno            │         │
+│   │  [Abrir tarjeta]            │  │  [Abrir tarjeta]            │         │
+│   └─────────────────────────────┘  └─────────────────────────────┘         │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  💡 Puedes volver a esta pantalla cuando quieras.                    │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  [← Atrás]                                              [Ir al experimento →]│
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Énfasis:** tarjetas de consulta con icono de libro. No hay texto largo en pantalla. Al pulsar, se abre el manual como overlay (S04) con la tarjeta concreta.
+
+### 5.6. Pantalla 5: Experimento (S03.05)
+
+**Objetivo:** guiar el montaje y la medición sin dar la solución.
+
+**Distribución:**
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  ESTACIÓN 1 · RELÉ                    ●●●●●○○○  [📖] [❓]                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   EXPERIMENTO                                                                │
+│   ───────────                                                                │
+│   Sigue estos pasos. No te dice cómo conectar: eso es cosa tuya.            │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  1. Identifica los bornes del relé.                                  │   │
+│   │  2. Crimpa terminales Faston en un cable de pruebas.                 │   │
+│   │  3. Monta el circuito según tu predicción. Usa siempre fusible.      │   │
+│   │  4. Verifica con el multímetro:                                      │   │
+│   │     • Continuidad entre 85 y 86 (bobina).                            │   │
+│   │     • Continuidad entre 30 y 87a sin excitar.                        │   │
+│   │     • Continuidad entre 30 y 87 al excitar.                          │   │
+│   │     • Tensión en 87 con y sin excitación.                            │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  ESQUEMA INCOMPLETO (complétalo en tu cuaderno)                      │   │
+│   │                                                                      │   │
+│   │     +12V ──[FUSIBLE]──┬───────────────┐                             │   │
+│   │                       │               │                             │   │
+│   │                      [INT]            │                             │   │
+│   │                       │               │                             │   │
+│   │                       ?               ?                             │   │
+│   │                    ┌──┴──┐         ┌──┴──┐                          │   │
+│   │                    │ 85  │         │ 30  │                          │   │
+│   │                    │     │  RELÉ   │     │                          │   │
+│   │                    │ 86  │         │ 87  │                          │   │
+│   │                    └──┬──┘         └──┬──┘                          │   │
+│   │                       │               │                             │   │
+│   │                       ?               ?                             │   │
+│   │                                                                      │   │
+│   │     BOMBILLA:  ? ──[BOMBILLA]── ?    MASA: disponible               │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  [← Atrás]                                          [Registrar medidas →]   │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Énfasis:** lista de pasos numerada, clara. Esquema ASCII en tarjeta con fondo ligeramente gris y fuente monoespaciada. El esquema es parte del reto: el alumno debe completarlo.
+
+### 5.7. Pantalla 6: Registro de medidas (S03.06)
+
+**Objetivo:** recoger datos de forma estructurada.
+
+**Distribución:**
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  ESTACIÓN 1 · RELÉ                    ●●●●●●○○  [📖] [❓]                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   REGISTRO DE MEDIDAS                                                        │
+│   ───────────────────                                                        │
+│   Anota lo que has medido. Puedes añadir filas si necesitas más.            │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  QUÉ SE MIDE            │ VALOR OBTENIDO │ OBSERVACIONES            │   │
+│   ├─────────────────────────┼────────────────┼──────────────────────────┤   │
+│   │ Continuidad 85-86       │ [__________]   │ [______________________] │   │
+│   │ Continuidad 30-87a      │ [__________]   │ [______________________] │   │
+│   │ Continuidad 30-87       │ [__________]   │ [______________________] │   │
+│   │ Tensión en 87 (sin exc.)│ [__________]   │ [______________________] │   │
+│   │ Tensión en 87 (excit.)  │ [__________]   │ [______________________] │   │
+│   │ Resistencia de bobina   │ [__________]   │ [______________________] │   │
+│   │                         │                │                          │   │
+│   │ [+ Añadir fila]         │                │                          │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  💡 Valores en texto libre: admite "OL", "pita", "no pita", "12,4 V" │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  [← Atrás]                                        [Guardar y comprobar →]   │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Énfasis:** tabla editable con filas predefinidas (vacías). Inputs con borde claro. Botón "+ Añadir fila" discreto.
+
+### 5.8. Pantalla 7: Comprobación (S03.07)
+
+**Objetivo:** comparar predicción y resultado. Es el momento de mayor conflicto cognitivo.
+
+**Distribución:**
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  ESTACIÓN 1 · RELÉ                    ●●●●●●●○  [📖] [❓]                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   COMPROBACIÓN                                                               │
+│   ────────────                                                               │
+│                                                                              │
+│   ┌───────────────────────────────┐  ┌───────────────────────────────────┐   │
+│   │  TU PREDICCIÓN                │  │  TUS MEDIDAS                      │   │
+│   │  ─────────────                │  │  ───────────                      │   │
+│   │  Tensión en 87 excitado:      │  │  Tensión en 87 excitado: 12,1 V   │   │
+│   │  "12 V"                       │  │  Continuidad 30-87: pita          │   │
+│   │  Continuidad 30-87: "pita"    │  │  Continuidad 30-87a: no pita      │   │
+│   │  Continuidad 30-87a: "pita"   │  │  Resistencia bobina: 78 Ω         │   │
+│   │  Resistencia bobina: "no sé"  │  │                                   │   │
+│   └───────────────────────────────┘  └───────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  ¿Coincide con tu predicción?                                        │   │
+│   │                                                                      │   │
+│   │  [ Sí ]   [ No ]                                                     │   │
+│   │                                                                      │   │
+│   │  ¿Por qué? Explica las diferencias.                                  │   │
+│   │  ┌────────────────────────────────────────────────────────────────┐  │   │
+│   │  │ [Área de texto libre, 4 líneas]                                │  │   │
+│   │  └────────────────────────────────────────────────────────────────┘  │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  [← Atrás]                                            [Guardar y concluir →]│
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Énfasis:** comparación lado a lado (predicción vs medidas reales). Botones Sí/No grandes. Campo de explicación obligatorio si "No" (o recomendado si "Sí").
+
+### 5.9. Pantalla 8: Conclusión (S03.08)
+
+**Objetivo:** sintetizar el aprendizaje.
+
+**Distribución:**
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  ESTACIÓN 1 · RELÉ                    ●●●●●●●●  [📖] [❓]                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   CONCLUSIÓN                                                                 │
+│   ──────────                                                                 │
+│                                                                              │
+│   Explica con tus palabras qué hace el relé, qué relación tiene con el       │
+│   electroimán y por qué se usa en el automóvil.                             │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │                                                                      │   │
+│   │  [Área de texto libre, 6 líneas]                                     │   │
+│   │                                                                      │   │
+│   │                                                                      │   │
+│   │                                                                      │   │
+│   │                                                                      │   │
+│   │                                                                      │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  APLICACIÓN AL VEHÍCULO                                              │   │
+│   │  Cita tres consumidores del vehículo que utilizan relé y explica     │   │
+│   │  por qué.                                                            │   │
+│   │  ┌────────────────────────────────────────────────────────────────┐  │   │
+│   │  │ [Área de texto libre, 3 líneas]                                │  │   │
+│   │  └────────────────────────────────────────────────────────────────┘  │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  [← Atrás]                                          [Cerrar estación →]     │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Énfasis:** área de conclusión grande (6 líneas). Aplicación al vehículo en tarjeta separada, más pequeña.
+
+### 5.10. Pantalla 9: Cierre de estación (S03.10)
+
+**Objetivo:** feedback de logro y vuelta al mapa.
+
+**Distribución:**
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ☰  ESTACIÓN 1 · RELÉ                    ●●●●●●●●  [📖] [❓]                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│                         ┌─────────────────────┐                              │
+│                         │        ✓            │                              │
+│                         │   ESTACIÓN 1        │                              │
+│                         │   COMPLETADA        │                              │
+│                         └─────────────────────┘                              │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  RESUMEN                                                             │   │
+│   │  • Tiempo: 32 min                                                    │   │
+│   │  • Ayudas usadas: Nivel 2 (1 vez)                                    │   │
+│   │  • Consultas al manual: 3                                            │   │
+│   │  • Medidas registradas: 6                                            │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│                  ┌─────────────────────────────┐                             │
+│                  │     VOLVER AL MAPA           │                             │
+│                  └─────────────────────────────┘                             │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## TAREA 6 — SISTEMA DE AYUDAS
+
+### 6.1. Cómo se abre
+
+- **Botón "❓ Ayudas"** en el header, siempre visible en pantallas de estación y misión.
+- Al pulsar, se abre un **overlay lateral derecho** (panel deslizante de 420 px de ancho) con fondo oscurecido al 40% en el resto.
+- El overlay no interrumpe el flujo: al cerrarlo, el alumno vuelve exactamente donde estaba.
+
+### 6.2. Cómo se presenta
+
+**Panel de ayudas (overlay):**
+
+```
+┌──────────────────────────────────────────────┐
+│  AYUDAS · ESTACIÓN 1                    [✕]  │
+│  ─────────────────────                       │
+│                                              │
+│  Las ayudas son escalonadas.                 │
+│  Empieza por el nivel 1.                     │
+│                                              │
+│  ┌────────────────────────────────────────┐  │
+│  │  NIVEL 1 · Pista muy ligera            │  │
+│  │  ● Disponible                          │  │
+│  │  [Leer nivel 1]                        │  │
+│  └────────────────────────────────────────┘  │
+│                                              │
+│  ┌────────────────────────────────────────┐  │
+│  │  NIVEL 2 · Concepto técnico            │  │
+│  │  🔒 Bloqueado (lee el nivel 1)         │  │
+│  └────────────────────────────────────────┘  │
+│                                              │
+│  ┌────────────────────────────────────────┐  │
+│  │  NIVEL 3 · Explicación ampliada        │  │
+│  │  🔒 Bloqueado                          │  │
+│  └────────────────────────────────────────┘  │
+│                                              │
+│  ┌────────────────────────────────────────┐  │
+│  │  NIVEL 4 · Ayuda casi completa         │  │
+│  │  🔒 Bloqueado                          │  │
+│  └────────────────────────────────────────┘  │
+│                                              │
+└──────────────────────────────────────────────┘
+```
+
+### 6.3. Cómo se navega entre niveles
+
+- Solo se puede acceder al Nivel N si se ha leído el Nivel N-1.
+- Al pulsar "Leer nivel 1", el panel muestra el contenido del nivel 1 en una tarjeta expandida.
+- **Temporizador de 10 s** antes de que aparezca el botón "He leído, continuar". Evita el clic rápido sin leer.
+- Tras leer, aparece: "¿Te ha ayudado? [Sí] [No] [Un poco]" y "¿Necesitas más? [Sí, nivel 2] [No, volver al taller]".
+
+### 6.4. Distinción visual entre niveles
+
+| Nivel | Color de fondo | Borde izquierdo | Icono | Etiqueta |
+|-------|----------------|-----------------|-------|----------|
+| 1 | `#EAF2FA` azul muy claro | 4 px `#1F5FA8` | 💡 | "Pista muy ligera" |
+| 2 | `#D6E4F0` azul claro | 4 px `#1F5FA8` | 🔍 | "Concepto técnico" |
+| 3 | `#FDF3D6` amarillo claro | 4 px `#F2B705` | 🧭 | "Explicación ampliada" |
+| 4 | `#FBE5D6` naranja claro | 4 px `#E67E22` | 🛠️ | "Ayuda casi completa" |
+
+**Justificación:** la progresión cromática de frío a cálido indica que se acerca a una pista más concreta, sin llegar a la solución. El Nivel 4 es "casi completo", pero sigue sin dar el circuito montado ni la conclusión.
+
+### 6.5. Qué transmite
+
+- **"Te estoy orientando"**: los textos son preguntas o conceptos, no instrucciones.
+- **"No te estoy dando la solución"**: el Nivel 4 describe el procedimiento, pero no el resultado final. El alumno debe montar, medir y concluir.
+
+**Ejemplo de texto Nivel 1:** "Mira el relé. ¿Ves alguna indicación en la carcasa? ¿Qué crees que significan los números?"
+
+**Ejemplo de texto Nivel 4:** "Conecta 85 a masa y 86 a positivo a través del interruptor. Conecta 30 a positivo con fusible y 87 a la bombilla, y la bombilla a masa. Antes de montar, mide continuidad entre 30 y 87 con y sin bobina excitada para comprobar tu hipótesis." *(Describe el procedimiento, pero no da la conclusión ni el resultado de las medidas.)*
+
+---
+
+## TAREA 7 — MANUAL TÉCNICO
+
+### 7.1. Filosofía visual
+
+El manual **no es un libro**. Es un **centro de consulta**. La pantalla principal es un buscador grande y un índice de categorías. No hay capítulos que leer de principio a fin.
+
+### 7.2. Wireframe del manual (overlay)
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  MANUAL TÉCNICO                                            [✕ Cerrar]       │
+│  ────────────────────────────────────────────────────────────────────────    │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  🔍  Busca: [_____________________________________________]         │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   CATEGORÍAS:                                                               │
+│                                                                              │
+│   ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐      │
+│   │  Multímetro  │ │  Tensión     │ │  Resistencia │ │  Continuidad │      │
+│   └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘      │
+│   ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐      │
+│   │  Fusibles    │ │  Relés       │ │  Serie/Paral.│ │  Caída tens. │      │
+│   └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘      │
+│   ┌──────────────┐ ┌──────────────┐ ┌──────────────┐                        │
+│   │  Batería     │ │  Alternador  │ │  Diagnóstico │                        │
+│   └──────────────┘ └──────────────┘ └──────────────┘                        │
+│                                                                              │
+│   ÚLTIMAS CONSULTAS:                                                        │
+│   • "continuidad" · hace 2 min                                              │
+│   • "borne 87" · hace 5 min                                                 │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 7.3. Buscador
+
+- **Campo grande, prominente**, en la parte superior.
+- **Búsqueda predictiva:** al escribir 2 letras, aparecen sugerencias.
+- **Sin resultados:** mensaje "No encontramos esa consulta. Prueba con: continuidad, relé, fusible, batería..."
+- **Historial:** últimas 5 consultas, accesibles con un clic.
+
+### 7.4. Categorías
+
+- **Botones tipo chip**, en cuadrícula de 3-4 columnas.
+- Cada categoría agrupa varias tarjetas.
+- Al pulsar, se filtra la lista de tarjetas.
+
+### 7.5. Tarjetas técnicas
+
+**Estructura de cada tarjeta:**
+
+```
+┌──────────────────────────────────────────────────────────────────────┐
+│  📖  ¿CÓMO COMPROBAR CONTINUIDAD?                          [Cerrar]  │
+│  ────────────────────────────────────────────────────────────────    │
+│                                                                      │
+│  RESPUESTA BREVE                                                     │
+│  Pon el multímetro en modo 🔊. Asegúrate de que no hay tensión.      │
+│  Puntas en los extremos del componente. Si pita, hay camino.        │
+│                                                                      │
+│  ESQUEMA                                                             │
+│  ┌──────────────────────────────────────────────────────────────┐    │
+│  │   ┌──────────┐                                              │    │
+│  │   │ MULTÍM.  │                                              │    │
+│  │   │   🔊     │                                              │    │
+│  │   └──┬────┬──┘                                              │    │
+│  │      │    │                                                 │    │
+│  │   ───┴────┴───                                              │    │
+│  │      CABLE                                                  │    │
+│  │   Pita → cable sano                                         │    │
+│  │   No pita → cable roto                                      │    │
+│  └──────────────────────────────────────────────────────────────┘    │
+│                                                                      │
+│  ERROR HABITUAL                                                      │
+│  ⚠ No midas continuidad con tensión presente.                       │
+│                                                                      │
+│  [Volver al taller]                                                  │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+**Propiedades de la tarjeta:**
+- **Ancho máximo:** 640 px, centrada.
+- **Fondo:** blanco.
+- **Borde:** 1 px `#E1E4E8`.
+- **Padding:** 24 px.
+- **Tiempo de lectura:** 30-60 s.
+- **Sin scroll interno** (si es más larga, se permite scroll, pero se recomienda que quepa en una pantalla).
+
+### 7.6. Comportamiento
+
+- El manual se abre como **overlay a pantalla completa** (no lateral) porque requiere más espacio para esquemas.
+- Al cerrar, se vuelve a la pantalla de origen con scroll restaurado.
+- Cada consulta se registra para evidencias.
+
+---
+
+## TAREA 8 — MISIÓN FINAL
+
+### 8.1. Estética diferenciada
+
+La misión final debe sentirse **diferente** de las estaciones. Mientras las estaciones son "entrenamiento", la misión es "caso real".
+
+**Diferencias visuales:**
+
+| Aspecto | Estaciones | Misión final |
+|---------|------------|--------------|
+| Fondo | Gris claro `#F2F3F5` | Gris más oscuro `#E8EAED` (sensación de "fuera del aula") |
+| Header | Azul técnico | Negro carbón `#1F2328` con texto blanco (más serio) |
+| Tarjetas | Blancas, borde sutil | Blancas, borde más marcado, sombra ligeramente mayor |
+| Acento | Azul `#1F5FA8` | Naranja técnico `#E67E22` (urgencia, caso real) |
+| Icono | Número de estación | 🚗 (coche) o 🔧 (herramienta) |
+| Tipografía de títulos | 24 px | 26 px (un poco más grande, más peso) |
+
+**Justificación:** el cambio de paleta y de tono marca un cambio de rol: de alumno en entrenamiento a técnico resolviendo un caso. Sin ser dramático, el alumno percibe que "esto es distinto".
+
+### 8.2. Estructura y narrativa visual
+
+La misión tiene 10 pantallas (S06.01–S06.10), pero visualmente se agrupan en 3 fases:
+
+1. **Recepción (S06.01–S06.03):** narrativa, cliente, observaciones. Fondo más oscuro, texto más narrativo.
+2. **Diagnóstico (S06.04–S06.06):** hipótesis, plan, medidas. Fondo claro, tarjetas técnicas, panel de acciones.
+3. **Cierre (S06.07–S06.10):** comprobación, conclusión, informe, cierre. Fondo claro, énfasis en el documento final.
+
+### 8.3. Wireframe: pantalla de recepción (S06.01)
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🚗  MISIÓN FINAL · EL ÚLTIMO COCHE DEL DÍA              [📖] [❓]            │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │                                                                      │   │
+│   │  Es viernes por la tarde. Queda un coche en el taller.               │   │
+│   │                                                                      │   │
+│   │  El jefe de taller te lo asigna:                                     │   │
+│   │                                                                      │   │
+│   │  "Es el último del día. Ya sé que eres alumno, pero hoy has          │   │
+│   │   trabajado como un técnico. Demuéstralo."                           │   │
+│   │                                                                      │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  DATOS DEL VEHÍCULO                                                  │   │
+│   │  Turismo gasolina · 2008 · 1.6 · 180.000 km                          │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                              [Ver al cliente →]│
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 8.4. Wireframe: pantalla de ejecución de medidas (S06.06)
+
+Esta es la pantalla clave de la misión. El alumno elige qué medir de una lista de acciones.
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🚗  MISIÓN FINAL · EJECUCIÓN DE MEDIDAS                 [📖] [❓]            │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   ACCIONES DISPONIBLES                                                       │
+│   ───────────────────                                                        │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  ○ Medir tensión de batería en reposo                                │   │
+│   │  ○ Medir tensión de batería con motor en marcha                      │   │
+│   │  ○ Medir caída de tensión en masa del motor                          │   │
+│   │  ○ Medir caída de tensión en cable positivo del alternador           │   │
+│   │  ○ Comprobar continuidad del fusible de carga                        │   │
+│   │  ○ Comprobar continuidad 30-87 del relé de focos                     │   │
+│   │  ○ Comprobar continuidad 30-87a del relé de focos                    │   │
+│   │  ○ Medir tensión en el electroventilador                             │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  RESULTADOS OBTENIDOS                                                │   │
+│   │  ───────────────────                                                 │   │
+│   │  ✓ Tensión batería en reposo: 12,2 V                                 │   │
+│   │  ✓ Tensión batería en marcha: 13,0 V                                 │   │
+│   │  ✓ Caída en masa del motor: 0,8 V                                    │   │
+│   │  (puedes ejecutar más acciones)                                      │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  [← Atrás]                                          [Ver resultados y concluir →]│
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Énfasis:** las acciones no ejecutadas son botones outline; las ejecutadas se muestran con check verde y su resultado. El alumno puede ejecutar las que quiera, en el orden que quiera. **No hay bloqueo**: puede equivocarse.
+
+### 8.5. Indicadores de progreso
+
+- **Header:** barra de progreso de la misión (10 segmentos, uno por pantalla).
+- **No hay puntuación ni medallas.** El progreso es la propia secuencia de pantallas.
+- **Al final:** nivel de diagnóstico (correcto / parcial / insuficiente) con criterios, no con nota.
+
+---
+
+## TAREA 9 — CIERRE GLOBAL
+
+### 9.1. Qué debe transmitir
+
+- **Logro:** "has completado la jornada".
+- **Profesionalidad:** "has trabajado como un técnico".
+- **Reflexión:** "¿qué has aprendido?".
+
+**NO debe transmitir:** infantilismo, gamificación, competencia con otros, medallas, puntos, rankings.
+
+### 9.2. Estructura visual
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                                                                              │
+│                     ┌─────────────────────────────┐                          │
+│                     │          ✓                  │                          │
+│                     │   JORNADA COMPLETADA        │                          │
+│                     └─────────────────────────────┘                          │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  RESUMEN DE LA JORNADA                                               │   │
+│   │  ─────────────────────                                               │   │
+│   │  • Estaciones completadas: 4/4                                       │   │
+│   │  • Misión final: completada                                          │   │
+│   │  • Tiempo total: 2 h 35 min                                          │   │
+│   │  • Ayudas utilizadas: 5                                              │   │
+│   │  • Consultas al manual: 12                                           │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  TUS CONCLUSIONES                                                    │   │
+│   │  ─────────────────                                                   │   │
+│   │  Estación 1: "El relé permite controlar..."                          │   │
+│   │  Estación 2: "La conexión en paralelo es..."                         │   │
+│   │  Estación 3: "Al aumentar la resistencia..."                         │   │
+│   │  Estación 4: "La caída de tensión en masa..."                        │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  REFLEXIÓN FINAL                                                     │   │
+│   │  ─────────────────                                                   │   │
+│   │  ¿Qué es lo que mejor has entendido hoy?                             │   │
+│   │  [_____________________________________________________________]     │   │
+│   │                                                                      │   │
+│   │  ¿Qué te ha costado más?                                             │   │
+│   │  [_____________________________________________________________]     │   │
+│   │                                                                      │   │
+│   │  ¿Qué harías distinto la próxima vez?                                │   │
+│   │  [_____________________________________________________________]     │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│   ┌──────────────────────────────────────────────────────────────────────┐   │
+│   │  "Has resuelto el último coche del día. Has pensado como un técnico. │   │
+│   │   No has acertado por suerte: has medido, has descartado y has       │   │
+│   │   concluido. Eso es lo que se hace en un taller de verdad."          │   │
+│   └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                              │
+│                  ┌─────────────────────────────┐                             │
+│                  │   DESCARGAR EVIDENCIAS       │                             │
+│                  └─────────────────────────────┘                             │
+│                  ┌─────────────────────────────┐                             │
+│                  │   VOLVER AL INICIO           │                             │
+│                  └─────────────────────────────┘                             │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 9.3. Detalles de estilo
+
+- **Fondo:** blanco `#FFFFFF` (contraste con el gris de las estaciones, sensación de "documento final").
+- **Check de completado:** verde `#2E7D4F`, 64 px, sin animación.
+- **Resumen:** tarjeta con datos en formato lista.
+- **Conclusiones:** extracto de las conclusiones registradas, en cursiva, gris.
+- **Reflexión:** tres campos de texto libre, con labels claros.
+- **Mensaje final:** en tipografía 18 px, peso 500, centrado, con borde superior e inferior.
+- **Botones:** "Descargar evidencias" (primario) y "Volver al inicio" (secundario).
+
+**Sin medallas, sin puntos, sin rankings, sin confeti, sin animaciones de celebración.** El logro se transmite con el check, el resumen y el mensaje final.
+
+---
+
+## TAREA 10 — MALAS DECISIONES DE UX (QUÉ NO HACER)
+
+### 10.1. Exceso de texto
+
+**Por qué es malo:** el alumno está en taller, con las manos ocupadas. No va a leer párrafos. Si la pantalla tiene más de 6-8 líneas de texto seguidas, se pierde.
+
+**Regla:** máximo 3-4 líneas por párrafo. Usar listas, tablas, esquemas. El texto largo va al manual, no a la pantalla de estación.
+
+### 10.2. Demasiados colores
+
+**Por qué es malo:** el color pierde significado. Si todo es colorido, nada destaca.
+
+**Regla:** 2 colores principales (azul, amarillo) + estados (verde, rojo, gris). El resto, neutros. El color se usa para **estado**, no para decorar.
+
+### 10.3. Formularios largos
+
+**Por qué es malo:** el alumno se agobia y rellena sin pensar. Un formulario de 20 campos no es un cuaderno de taller, es una declaración de la renta.
+
+**Regla:** máximo 4-5 campos por pantalla. Si hay más, dividir en pantallas. Los campos obligatorios, marcados; los opcionales, discretos.
+
+### 10.4. Ventanas emergentes (modales) innecesarias
+
+**Por qué es malo:** interrumpen el flujo. En taller, el alumno está concentrado en el montaje; un modal le saca de contexto.
+
+**Regla:** los modales solo para confirmaciones destructivas (borrar sesión, reiniciar) y para feedback crítico. El manual y las ayudas son **overlays**, no modales: no bloquean, se cierran con un clic y vuelven al punto exacto.
+
+### 10.5. Navegación compleja
+
+**Por qué es malo:** el alumno se pierde y pierde tiempo. En una SPA de taller, la navegación debe ser lineal y predecible.
+
+**Regla:** máximo 2 niveles de profundidad. La estación es lineal (Atrás / Siguiente). El mapa es el único punto de ramificación. No hay menús anidados, no hay submenús, no hay pestañas dentro de pestañas.
+
+### 10.6. Animaciones largas o decorativas
+
+**Por qué es malo:** distraen, ralentizan y no aportan. El alumno quiere volver al taller.
+
+**Regla:** transiciones de 150-200 ms, solo para cambios de pantalla. Sin animaciones de carga, sin spinners, sin efectos de partículas. El feedback es silencioso (cambio de color, check).
+
+### 10.7. Gamificación infantil
+
+**Por qué es malo:** el alumno de 1º GM no es un niño. Puntos, medallas, rankings y confeti le infantilizan y le restan credibilidad a la práctica.
+
+**Regla:** el progreso es la propia estación completada. Sin puntos, sin badges, sin rankings, sin comparativas entre grupos. El logro se transmite con el check y el mensaje final.
+
+### 10.8. Contenido teórico en pantalla de estación
+
+**Por qué es malo:** convierte el cuaderno en un libro digital. El alumno lee en lugar de manipular.
+
+**Regla:** la teoría va al manual (consulta rápida). En la estación, solo lo imprescindible para resolver el reto. Si un concepto requiere más de 3 líneas, va al manual.
+
+### 10.9. Soluciones automáticas o pistas no solicitadas
+
+**Por qué es malo:** elimina el descubrimiento. Si el sistema da la respuesta, el alumno no piensa.
+
+**Regla:** las ayudas solo se muestran si el alumno las solicita. Nunca aparecen automáticamente. El Nivel 4 es "casi completo", pero no da la solución final.
+
+### 10.10. Dependencia de conexión o de servicios externos
+
+**Por qué es malo:** el taller puede no tener wifi estable. Una app que no funciona offline es inútil en aula.
+
+**Regla:** todo local. Sin CDN, sin fuentes externas, sin analítica, sin llamadas de red. La app debe funcionar en un portátil sin conexión.
+
+### 10.11. Formularios con validación agresiva
+
+**Por qué es malo:** el alumno está midiendo, no rellenando un examen. Si el sistema le dice "valor no válido" porque ha escrito "pita" en lugar de "continuidad", se frustra.
+
+**Regla:** los campos de medidas son **texto libre**. Admite "OL", "pita", "no pita", "12,4 V", "infinito". No hay validación numérica. La interpretación la hace el alumno, no el sistema.
+
+### 10.12. Exceso de confirmaciones
+
+**Por qué es malo:** cada clic extra es fricción. Si el alumno tiene que confirmar cada acción, pierde tiempo.
+
+**Regla:** solo se confirma lo destructivo (borrar sesión, reiniciar). Guardar, avanzar, abrir manual: sin confirmación. Autoguardado silencioso.
+
+### 10.13. Textos en mayúsculas sostenidas
+
+**Por qué es malo:** dificultan la lectura y dan sensación de grito.
+
+**Regla:** mayúsculas solo en títulos de sección y etiquetas cortas. El cuerpo de texto, en minúsculas normales.
+
+### 10.14. Iconos sin texto
+
+**Por qué es malo:** un icono puede ser ambiguo. En taller, la claridad es prioridad.
+
+**Regla:** todo icono va acompañado de texto (excepto los universalmente conocidos: ✕ para cerrar, ← para atrás). En caso de duda, texto.
+
+### 10.15. Diseño que parece un examen
+
+**Por qué es malo:** el alumno se pone nervioso y responde para "aprobar", no para aprender.
+
+**Regla:** no hay temporizador visible, no hay puntuación, no hay "correcto/incorrecto" en las predicciones. La comprobación es una reflexión, no una corrección automática.
+
+---
+
+**Fin del documento de diseño UX v1.0.**
+**Listo para aprobación y paso a desarrollo HTML/CSS/JS.**
