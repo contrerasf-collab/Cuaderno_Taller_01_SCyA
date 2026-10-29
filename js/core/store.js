@@ -116,6 +116,34 @@ export const store = {
     scheduleSave();
     notify();
   },
+    replaceState(partial) {
+    if (!partial || typeof partial !== 'object') {
+      console.error('replaceState: estado inválido');
+      return;
+    }
+
+    const defaults = makeDefaultPersisted();
+    const session = {
+      ...defaults.session,
+      ...(partial.session || {}),
+      schemaVersion: SCHEMA_VERSION,
+      currentScreen: '/',
+      lastWorkingScreen: '/mapa'
+    };
+
+    persisted = { ...defaults, ...partial, session };
+
+    if (saveTimer) {
+      clearTimeout(saveTimer);
+      saveTimer = null;
+    }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(persisted));
+    } catch (err) {
+      console.error('Error guardando sesión importada:', err);
+    }
+    notify();
+  },
 
   setEphemeral(patch) {
     Object.assign(ephemeral, patch);

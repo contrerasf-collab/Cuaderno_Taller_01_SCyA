@@ -2,6 +2,8 @@ import { h } from '../core/dom.js';
 import { store } from '../core/store.js';
 import { getContent } from '../core/content.js';
 import { navigate } from '../core/router.js';
+import { showToast } from '../components/toast.js';
+import { readSessionFile } from '../core/import-json.js';
 
 export function ScreenInicio() {
   const state = store.get();
@@ -13,6 +15,7 @@ export function ScreenInicio() {
   let member1 = null;
   let member2 = null;
   let member3 = null;
+  let fileInput = null;
 
   function saveAndStart() {
     const groupName = groupInput.value.trim();
@@ -51,6 +54,51 @@ export function ScreenInicio() {
     window.location.reload();
   }
 
+  function triggerImport() {
+    const fresh = store.getPersisted();
+    const hasActiveSession = !!(fresh.session.groupName && fresh.session.groupName.trim().length > 0);
+
+    if (hasActiveSession) {
+      const confirmed = window.confirm(
+        `Esto reemplazará la sesión actual del equipo "${fresh.session.groupName}". ¿Deseas continuar?`
+      );
+      if (!confirmed) return;
+    }
+
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  async function handleFileSelected(event) {
+    const input = event.target;
+    const file = input.files && input.files[0];
+
+    if (!file) {
+      input.value = '';
+      return;
+    }
+
+    try {
+      const currentVersion = store.getPersisted().session.schemaVersion;
+      const result = await readSessionFile(file, currentVersion);
+
+      if (!result.ok) {
+        showToast(result.error || 'No se pudo importar el archivo.', 'error', 3500);
+        return;
+      }
+
+      store.replaceState(result.state);
+      showToast('Sesión restaurada correctamente', 'success');
+      navigate('/mapa');
+    } catch (err) {
+      console.error('Error al importar sesión:', err);
+      showToast('No se pudo importar el archivo.', 'error');
+    } finally {
+      input.value = '';
+    }
+  }
+
   const actions = hasSession
     ? [
         h('button', {
@@ -62,13 +110,32 @@ export function ScreenInicio() {
           class: 'btn btn--secondary',
           type: 'button',
           onclick: newSession
-        }, 'Nueva sesión')
+        }, 'Nueva sesión'),
+        h('button', {
+          class: 'btn btn--secondary',
+          type: 'button',
+          onclick: triggerImport
+        }, 'Importar sesión')
       ]
-    : h('button', {
-        class: 'btn btn--primary',
-        type: 'button',
-        onclick: saveAndStart
-      }, 'Empezar la jornada');
+    : [
+        h('button', {
+          class: 'btn btn--primary',
+          type: 'button',
+          onclick: saveAndStart
+        }, 'Empezar la jornada'),
+        h('button', {
+          class: 'btn btn--secondary',
+          type: 'button',
+          onclick: triggerImport
+        }, 'Importar sesión')
+      ];
+
+  fileInput = h('input', {
+    type: 'file',
+    accept: '.json,application/json',
+    hidden: true,
+    onchange: handleFileSelected
+  });
 
   const el = h('div', { class: 'screen-inicio' },
     h('div', { class: 'screen-inicio__hero' },
@@ -98,6 +165,7 @@ export function ScreenInicio() {
       )
     ),
     h('div', { class: 'screen-inicio__actions' }, actions),
+    fileInput,
     h('p', { class: 'screen-inicio__safety' }, '⚠ Gafas de protección · Fusible obligatorio · No medir intensidad')
   );
 
