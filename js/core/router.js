@@ -8,7 +8,11 @@ import { getStationScreen } from '../station-screens/_dispatcher.js';
 const ROUTES = [
   { pattern: /^\/?$/, handler: 'inicio', guard: null },
   { pattern: /^\/mapa\/?$/, handler: 'mapa', guard: 'requireSession' },
-  { pattern: /^\/estacion\/(E[1-4])\/(situacion|pregunta|prediccion)\/?$/, handler: 'estacion', guard: 'requireSession' }
+  {
+    pattern: /^\/estacion\/(E[1-4])\/(situacion|pregunta|prediccion|documentacion|experimento|medidas|comprobacion|conclusion|aplicacion|cierre)\/?$/,
+    handler: 'estacion',
+    guard: 'requireSession'
+  }
 ];
 
 const GUARDS = {

@@ -24,7 +24,8 @@ function renderForm(station) {
       oninput: updateSaveState
     });
     return h('div', { class: 'field' },
-      h('label', { class: 'field__label' }, field.label + (field.required ? ' *' : '')),
+      h('label', { class: 'field__label' },
+        field.label + (field.required ? ' *' : '')),
       inputs[field.id]
     );
   });
@@ -38,7 +39,9 @@ function renderForm(station) {
 
   function updateSaveState() {
     const requiredFields = station.prediction.fields.filter(f => f.required);
-    const allRequiredFilled = requiredFields.every(f => inputs[f.id].value.trim().length > 0);
+    const allRequiredFilled = requiredFields.every(
+      f => inputs[f.id].value.trim().length > 0
+    );
     saveBtn.disabled = !allRequiredFilled;
   }
 
@@ -57,8 +60,7 @@ function renderForm(station) {
     }));
 
     store.flush();
-    window.alert('Predicción guardada. En el Sprint 2 se implementará la pantalla de experimento.');
-    navigate('/mapa');
+    navigate(`/estacion/${station.id}/documentacion`);
   }
 
   const backBtn = h('button', {
@@ -74,7 +76,8 @@ function renderForm(station) {
 
   const content = h('div', { class: 'screen-station' },
     h('h2', null, 'Predicción'),
-    h('p', { class: 'screen-station__intro' }, station.prediction.intro || 'Antes de montar, escribe lo que crees que ocurrirá.'),
+    h('p', { class: 'screen-station__intro' },
+      station.prediction.intro || 'Antes de montar, escribe lo que crees que ocurrirá.'),
     h('div', { class: 'card' }, fields),
     h('div', { class: 'card card--warning' },
       h('p', null, `⚠ ${station.prediction.lockWarning}`)
@@ -107,13 +110,17 @@ function renderLocked(station, prediction) {
     onclick: () => navigate('/mapa')
   }, '← Volver al mapa');
 
+  const nextBtn = h('button', {
+    class: 'btn btn--primary',
+    type: 'button',
+    onclick: () => navigate(`/estacion/${station.id}/documentacion`)
+  }, 'Continuar →');
+
   const content = h('div', { class: 'screen-station' },
     h('h2', null, 'Predicción (bloqueada)'),
-    h('p', { class: 'screen-station__intro' }, 'Esta predicción ya ha sido guardada y no puede modificarse.'),
-    h('div', { class: 'card' }, fields),
-    h('div', { class: 'card card--info' },
-      h('p', null, 'En el Sprint 2 se implementará la pantalla de experimento.')
-    )
+    h('p', { class: 'screen-station__intro' },
+      'Esta predicción ya ha sido guardada y no puede modificarse.'),
+    h('div', { class: 'card' }, fields)
   );
 
   return {
@@ -121,6 +128,6 @@ function renderLocked(station, prediction) {
     showManual: true,
     showHelp: false,
     content,
-    footerActions: { left: backBtn }
+    footerActions: { left: backBtn, right: nextBtn }
   };
 }
