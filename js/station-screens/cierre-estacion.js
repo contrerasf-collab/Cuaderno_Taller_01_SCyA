@@ -9,8 +9,6 @@ export function renderCierreEstacion(station) {
   if (!progress) {
     return {
       title: 'Error',
-      showManual: false,
-      showHelp: false,
       content: h('div', { class: 'screen-message' },
         h('p', null, 'No se encontró la estación.')
       )
@@ -20,7 +18,9 @@ export function renderCierreEstacion(station) {
   let timeSpentSec = progress.timeSpentSec || 0;
 
   if (progress.state !== 'completed') {
-    const started = progress.startedAt ? new Date(progress.startedAt).getTime() : Date.now();
+    const started = progress.startedAt
+      ? new Date(progress.startedAt).getTime()
+      : Date.now();
     timeSpentSec = Math.round((Date.now() - started) / 1000);
 
     store.updatePersisted(s => ({
@@ -38,20 +38,38 @@ export function renderCierreEstacion(station) {
   }
 
   const measurementCount = (progress.measurements && progress.measurements.length) || 0;
-  const helpsCount = (progress.helpsUsed && progress.helpsUsed.length) || 0;
+  const helpsList = progress.helpsUsed || [];
+  const helpsCount = helpsList.length;
+  const manualQueriesCount = (progress.manualQueries || []).length;
 
   const summaryItems = [
-    h('li', null, h('strong', null, 'Tiempo: '), formatDuration(timeSpentSec)),
-    h('li', null, h('strong', null, 'Medidas registradas: '), String(measurementCount)),
-    h('li', null, h('strong', null, 'Conclusión: '),
+    h('li', null,
+      h('strong', null, 'Tiempo: '),
+      formatDuration(timeSpentSec)),
+    h('li', null,
+      h('strong', null, 'Medidas registradas: '),
+      String(measurementCount)),
+    h('li', null,
+      h('strong', null, 'Conclusión: '),
       progress.conclusion ? 'Registrada' : 'No registrada'),
-    h('li', null, h('strong', null, 'Aplicación al vehículo: '),
+    h('li', null,
+      h('strong', null, 'Aplicación al vehículo: '),
       progress.vehicleApplication ? 'Registrada' : 'No registrada')
   ];
 
   if (helpsCount > 0) {
+    const levels = helpsList.map(h => h.level).join(', ');
     summaryItems.splice(2, 0,
-      h('li', null, h('strong', null, 'Ayudas utilizadas: '), String(helpsCount)));
+      h('li', null,
+        h('strong', null, 'Ayudas utilizadas: '),
+        `${helpsCount} (niveles: ${levels})`));
+  }
+
+  if (manualQueriesCount > 0) {
+    summaryItems.splice(3, 0,
+      h('li', null,
+        h('strong', null, 'Consultas al manual: '),
+        String(manualQueriesCount)));
   }
 
   const body = h('div', { class: 'screen-station' },
@@ -73,8 +91,6 @@ export function renderCierreEstacion(station) {
 
   return {
     title: `${station.order}. ${station.title} — Completada`,
-    showManual: true,
-    showHelp: false,
     content: body,
     footerActions: { right: mapBtn }
   };

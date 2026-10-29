@@ -3,23 +3,33 @@ import { store } from './store.js';
 import { getStation } from './content.js';
 import { ScreenInicio } from '../screens/s00-inicio.js';
 import { ScreenMapa } from '../screens/s02-mapa.js';
+import { ScreenMisionPlaceholder } from '../screens/s06-mision-placeholder.js';
 import { getStationScreen } from '../station-screens/_dispatcher.js';
+import { openHelpPanel } from '../components/help-panel.js';
+import { openManualPanel } from '../components/manual-panel.js';
 
 const ROUTES = [
   { pattern: /^\/?$/, handler: 'inicio', guard: null },
   { pattern: /^\/mapa\/?$/, handler: 'mapa', guard: 'requireSession' },
-  {
-    pattern: /^\/estacion\/(E[1-4])\/(situacion|pregunta|prediccion|documentacion|experimento|medidas|comprobacion|conclusion|aplicacion|cierre)\/?$/,
-    handler: 'estacion',
-    guard: 'requireSession'
-  }
+  { pattern: /^\/estacion\/(E[1-4])\/(situacion|pregunta|prediccion|documentacion|experimento|medidas|comprobacion|conclusion|aplicacion|cierre)\/?$/, handler: 'estacion', guard: 'requireSession' },
+  { pattern: /^\/mision\/?$/, handler: 'mision', guard: 'requireMissionUnlocked' }
 ];
 
 const GUARDS = {
   requireSession: () => {
     const s = store.getPersisted();
     return !!(s.session && s.session.groupName && s.session.groupName.length > 0);
+  },
+  requireMissionUnlocked: () => {
+    const s = store.getPersisted();
+    const completed = s.stations.filter(st => st.state === 'completed').length;
+    return completed === 4;
   }
+};
+
+const GUARD_REDIRECTS = {
+  requireSession: '/',
+  requireMissionUnlocked: '/mapa'
 };
 
 let currentScreenInstance = null;
@@ -45,7 +55,6 @@ function parseHash() {
 function render() {
   const path = parseHash();
 
-   // Guardar currentScreen siempre; lastWorkingScreen solo en rutas útiles
   const isWorkingScreen = path !== '/' && path !== '';
   const session = store.getPersisted().session;
   const needsCurrentUpdate = session.currentScreen !== path;
@@ -73,7 +82,7 @@ function render() {
   }
 
   if (match.guard && GUARDS[match.guard] && !GUARDS[match.guard]()) {
-    navigate('/');
+    navigate(GUARD_REDIRECTS[match.guard] || '/');
     return;
   }
 
@@ -104,7 +113,7 @@ function render() {
   header.innerHTML = '';
   footer.innerHTML = '';
 
-  renderHeader(header, screen);
+  renderHeader(header, screen, match);
   app.appendChild(screen.content);
   renderFooter(footer, screen);
 
@@ -135,12 +144,15 @@ function buildScreen(match) {
   if (match.handler === 'mapa') {
     return ScreenMapa();
   }
+  if (match.handler === 'mision') {
+    return ScreenMisionPlaceholder();
+  }
   if (match.handler === 'estacion') {
-    const [stationId, screenId] = match.params;
+    const stationId = match.params[0];
+    const screenId = match.params[1];
     const station = getStation(stationId);
     if (!station) return null;
 
-    // Marcar la estación como in_progress si estaba pendiente
     const progress = store.getPersisted().stations.find(s => s.stationId === stationId);
     if (progress && progress.state === 'pending') {
       store.updatePersisted(state => ({
@@ -157,29 +169,30 @@ function buildScreen(match) {
   return null;
 }
 
-function renderHeader(header, screen) {
+function renderHeader(header, screen, match) {
   header.appendChild(h('h1', { class: 'header__title' }, screen.title || ''));
 
   const right = h('div', { class: 'header__right' });
 
-  if (screen.showManual !== false) {
-    right.appendChild(h('button', {
-      class: 'header__icon-btn',
-      type: 'button',
-      title: 'Manual',
-      'aria-label': 'Abrir manual',
-      onclick: () => { console.log('TODO Sprint 2: manual'); }
-    }, '📖'));
-  }
+  if (match && match.handler === 'estacion') {
+    const station = getStation(match.params[0]);
+    if (station) {
+      right.appendChild(h('button', {
+        class: 'header__icon-btn',
+        type: 'button',
+        title: 'Manual',
+        'aria-label': 'Abrir manual',
+        onclick: () => openManualPanel(station)
+      }, 'M'));
 
-  if (screen.showHelp) {
-    right.appendChild(h('button', {
-      class: 'header__icon-btn',
-      type: 'button',
-      title: 'Ayudas',
-      'aria-label': 'Abrir ayudas',
-      onclick: () => { console.log('TODO Sprint 2: ayudas'); }
-    }, '❓'));
+      right.appendChild(h('button', {
+        class: 'header__icon-btn',
+        type: 'button',
+        title: 'Ayudas',
+        'aria-label': 'Abrir ayudas',
+        onclick: () => openHelpPanel(station)
+      }, '?'));
+    }
   }
 
   if (right.childNodes.length > 0) {
