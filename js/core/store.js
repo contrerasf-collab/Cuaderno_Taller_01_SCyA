@@ -7,10 +7,26 @@ const ephemeral = { ui: {} };
 let saveTimer = null;
 const subscribers = new Set();
 
+function makeDefaultFinalMission() {
+  return {
+    startedAt: null,
+    completedAt: null,
+    hypothesis: '',
+    selectedChecks: [],
+    checksReasoning: '',
+    interpretation: '',
+    diagnosis: '',
+    repair: '',
+    reflection1: '',
+    reflection2: '',
+    reflection3: ''
+  };
+}
+
 function makeDefaultPersisted() {
   return {
     session: {
-     sessionId: (typeof crypto !== 'undefined' && crypto.randomUUID)
+      sessionId: (typeof crypto !== 'undefined' && crypto.randomUUID)
         ? crypto.randomUUID()
         : String(Date.now()),
       groupName: '',
@@ -51,6 +67,7 @@ function makeDefaultPersisted() {
       helpsUsed: [],
       manualQueries: []
     },
+    finalMission: makeDefaultFinalMission(),
     globalReflection: { r1: '', r2: '', r3: '' }
   };
 }
@@ -63,9 +80,14 @@ export const store = {
         const parsed = JSON.parse(raw);
         if (parsed && parsed.session && parsed.session.schemaVersion === SCHEMA_VERSION) {
           persisted = parsed;
+          if (!persisted.finalMission) {
+            persisted.finalMission = makeDefaultFinalMission();
+          }
+          if (persisted.session.lastWorkingScreen === undefined) {
+            persisted.session.lastWorkingScreen = null;
+          }
           return;
         }
-        // Sesión incompatible → borrar y empezar nueva
         console.warn('Sesión incompatible. Se reinicia.');
         localStorage.removeItem(STORAGE_KEY);
       }

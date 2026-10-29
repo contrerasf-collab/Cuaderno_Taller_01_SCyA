@@ -3,8 +3,8 @@ import { store } from './store.js';
 import { getStation } from './content.js';
 import { ScreenInicio } from '../screens/s00-inicio.js';
 import { ScreenMapa } from '../screens/s02-mapa.js';
-import { ScreenMisionPlaceholder } from '../screens/s06-mision-placeholder.js';
 import { getStationScreen } from '../station-screens/_dispatcher.js';
+import { getMissionScreen } from '../mission-screens/_dispatcher.js';
 import { openHelpPanel } from '../components/help-panel.js';
 import { openManualPanel } from '../components/manual-panel.js';
 
@@ -12,7 +12,7 @@ const ROUTES = [
   { pattern: /^\/?$/, handler: 'inicio', guard: null },
   { pattern: /^\/mapa\/?$/, handler: 'mapa', guard: 'requireSession' },
   { pattern: /^\/estacion\/(E[1-4])\/(situacion|pregunta|prediccion|documentacion|experimento|medidas|comprobacion|conclusion|aplicacion|cierre)\/?$/, handler: 'estacion', guard: 'requireSession' },
-  { pattern: /^\/mision\/?$/, handler: 'mision', guard: 'requireMissionUnlocked' }
+  { pattern: /^\/mision\/(briefing|hipotesis|plan|resultados|interpretacion|diagnostico|reparacion|reflexion|cierre)\/?$/, handler: 'mision', guard: 'requireMissionUnlocked' }
 ];
 
 const GUARDS = {
@@ -145,7 +145,8 @@ function buildScreen(match) {
     return ScreenMapa();
   }
   if (match.handler === 'mision') {
-    return ScreenMisionPlaceholder();
+    const screenId = match.params[0];
+    return getMissionScreen(screenId);
   }
   if (match.handler === 'estacion') {
     const stationId = match.params[0];
