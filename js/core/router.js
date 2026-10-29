@@ -3,8 +3,8 @@ import { store } from './store.js';
 import { getStation } from './content.js';
 import { ScreenInicio } from '../screens/s00-inicio.js';
 import { ScreenMapa } from '../screens/s02-mapa.js';
-import { getStationScreen } from '../station-screens/_dispatcher.js';
-import { getMissionScreen } from '../mission-screens/_dispatcher.js';
+import { getStationScreen } from '../station-screens/dispatcher.js';
+import { getMissionScreen } from '../mission-screens/dispatcher.js';
 import { openHelpPanel } from '../components/help-panel.js';
 import { openManualPanel } from '../components/manual-panel.js';
 
