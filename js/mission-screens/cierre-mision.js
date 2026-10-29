@@ -74,6 +74,12 @@ export function renderCierreMision() {
     )
   );
 
+  const summaryBtn = h('button', {
+    class: 'btn btn--secondary',
+    type: 'button',
+    onclick: () => navigate('/resumen')
+  }, 'Ver resumen completo');
+
   const homeBtn = h('button', {
     class: 'btn btn--primary',
     type: 'button',
@@ -89,6 +95,6 @@ export function renderCierreMision() {
   return {
     title: 'Misión final — Completada',
     content: body,
-    footerActions: { right: homeBtn }
+    footerActions: { left: summaryBtn, right: homeBtn }
   };
 }

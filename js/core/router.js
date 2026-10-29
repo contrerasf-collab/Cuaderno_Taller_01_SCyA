@@ -3,6 +3,7 @@ import { store } from './store.js';
 import { getStation } from './content.js';
 import { ScreenInicio } from '../screens/s00-inicio.js';
 import { ScreenMapa } from '../screens/s02-mapa.js';
+import { ScreenResumen } from '../screens/s09-resumen.js';
 import { getStationScreen } from '../station-screens/dispatcher.js';
 import { getMissionScreen } from '../mission-screens/dispatcher.js';
 import { openHelpPanel } from '../components/help-panel.js';
@@ -12,7 +13,8 @@ const ROUTES = [
   { pattern: /^\/?$/, handler: 'inicio', guard: null },
   { pattern: /^\/mapa\/?$/, handler: 'mapa', guard: 'requireSession' },
   { pattern: /^\/estacion\/(E[1-4])\/(situacion|pregunta|prediccion|documentacion|experimento|medidas|comprobacion|conclusion|aplicacion|cierre)\/?$/, handler: 'estacion', guard: 'requireSession' },
-  { pattern: /^\/mision\/(briefing|hipotesis|plan|resultados|interpretacion|diagnostico|reparacion|reflexion|cierre)\/?$/, handler: 'mision', guard: 'requireMissionUnlocked' }
+  { pattern: /^\/mision\/(briefing|hipotesis|plan|resultados|interpretacion|diagnostico|reparacion|reflexion|cierre)\/?$/, handler: 'mision', guard: 'requireMissionUnlocked' },
+  { pattern: /^\/resumen\/?$/, handler: 'resumen', guard: 'requireSession' }
 ];
 
 const GUARDS = {
@@ -143,6 +145,9 @@ function buildScreen(match) {
   }
   if (match.handler === 'mapa') {
     return ScreenMapa();
+  }
+  if (match.handler === 'resumen') {
+    return ScreenResumen();
   }
   if (match.handler === 'mision') {
     const screenId = match.params[0];

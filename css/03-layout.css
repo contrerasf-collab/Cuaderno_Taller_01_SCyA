@@ -406,7 +406,9 @@
 
 .screen-mapa__nav {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
 }
 
 /* ---------- Pantalla Estación ---------- */

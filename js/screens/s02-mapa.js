@@ -121,7 +121,12 @@ export function ScreenMapa() {
         class: 'btn btn--secondary',
         type: 'button',
         onclick: () => navigate('/')
-      }, '← Volver al inicio')
+      }, '← Volver al inicio'),
+      h('button', {
+        class: 'btn btn--primary',
+        type: 'button',
+        onclick: () => navigate('/resumen')
+      }, 'Resumen de la jornada →')
     )
   );
 

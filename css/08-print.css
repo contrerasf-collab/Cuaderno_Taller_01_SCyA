@@ -1,0 +1,76 @@
+@media print {
+  #header,
+  #footer,
+  .resumen-actions,
+  .no-print,
+  .resumen-toast {
+    display: none !important;
+  }
+
+  body {
+    background: #FFFFFF;
+    color: #000000;
+  }
+
+  #app {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .screen-resumen {
+    max-width: 100%;
+  }
+
+  .resumen-header {
+    border-bottom: 1px solid #999;
+  }
+
+  .resumen-station {
+    page-break-inside: avoid;
+    border: 1px solid #999;
+  }
+
+  .resumen-station__summary::before {
+    content: "";
+    margin: 0;
+  }
+
+  .resumen-station__summary {
+    font-weight: bold;
+  }
+
+  .resumen-mission,
+  .resumen-totals {
+    page-break-inside: avoid;
+    border: 1px solid #999;
+  }
+
+  .resumen-block__title {
+    color: #333;
+  }
+
+  .resumen-field__label {
+    color: #333;
+  }
+
+  .resumen-station__footer {
+    color: #333;
+  }
+
+  .resumen-row__value--completed { color: #000; }
+  .resumen-row__value--in_progress { color: #000; }
+  .resumen-row__value--pending { color: #666; }
+
+  .btn {
+    display: none !important;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  h1, h2, h3, h4 {
+    color: #000;
+  }
+}
